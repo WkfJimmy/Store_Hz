@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="cn.wkf.store.mapper.UserMapper">
+<!-- id:该节点对应的抽象方法的名称 -->
+<!-- parameterType:对应的抽象方法的参数的数据类型 -->
+<!-- useGenerateKeys表示需要获取自动生成的主键(通常都是自动递增的id) -->
+<!-- keyProperty:表示当获取了主键的值（id的值）该值将被封装到那个属性中 -->
+<!-- resultType:查询返回的List集合中的数据的类型 -->
+	
+	<!-- Integer insert(User user) 插入用户的注册信息-->
+	<insert id="insert" parameterType="cn.wkf.store.entity.User"
+			useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_user(
+				id,
+				username,
+				password,
+				email,
+				phone,
+				gender,
+				avatar,
+				status,
+				is_delete,
+				created_user,
+				created_time,
+				modified_user,
+				modified_time
+		 )VALUES(
+				#{id},
+				#{username},
+				#{password},
+				#{email},
+				#{phone},
+				#{gender},
+				#{avatar},
+				#{status},
+				#{isDelete},
+				#{createdUser},
+				#{createdTime},
+				#{modifiedUser},
+				#{modifiedTime}
+			)
+	</insert>
+	
+	<!-- User getUserByUsername(String username) 根据用户名查询用户信息 -->
+	<select id="getUserByUsername" resultType="cn.wkf.store.entity.User">
+		SELECT
+			id,
+			username,
+			password,
+			email,
+			phone,
+			gender,
+			avatar,
+			status,
+			is_delete AS isDelete
+		FROM
+			t_user
+		WHERE
+			username=#{username}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册页面</title>
+
+</head>
+<body>
+	<form method="post">
+		用户名：<input type="text" id="username">
+		密 码：<input type="password" id="password">
+		电 话：<input type="text" id="phone">
+		邮 箱：<input type="text" id="email">
+		<input type="button" id="register_id" value="进行注册">
+	</form>
+</body>
+<script src="jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+	$("#register_id").click(function(){
+		alert("按钮有效");
+		var url = "../user/handle_reg.do";
+		var data = "username="+$("#username").val()+"&password="+$("#password").val()+
+		"&phone="+$("#phone").val()+"&email="+$("#email").val();
+		console.log("username:"+username);
+		$.ajax({
+			"url":url,
+			"data":data,
+			"type":"post",
+			"dataType":"json",
+			"success":function(json){
+				if(json.state == 200){
+					alert("注册成功");
+				}else if(json.state == 401){
+					alert("注册失败，用户名已经存在"+json.message);
+				}else if(json.state == 402){
+					alert("出现未知错误"+json.message);
+				}else {
+					alert("莫名其妙！！");
+				}
+			}
+		})
+	})
+</script>
+</html>
